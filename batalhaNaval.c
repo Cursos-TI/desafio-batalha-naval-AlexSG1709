@@ -5,13 +5,13 @@
 // Siga os comentários para implementar cada parte do desafio.
 
 int main() {
-    int tabuleiro[10][10] = {0}; // Inicializa o tabuleiro com água (0)
+    int tabuleiro[10][10] = {0};
 
-    // Define as coordenadas dos navios (exemplo)
-    int navio1_linha_inicial = 2; // Corresponde à linha 3
-    int navio1_coluna_inicial = 3; // Corresponde à coluna D
-    int navio2_linha_inicial = 5; // Corresponde à linha 6
-    int navio2_coluna_inicial = 1; // Corresponde à coluna B
+    // Define as coordenadas dos navios
+    int navio1_linha_inicial = 2; 
+    int navio1_coluna_inicial = 3;
+    int navio2_linha_inicial = 5;
+    int navio2_coluna_inicial = 1;
 
     // Posiciona o navio 1 (horizontal)
     for (int i = 0; i < 3; i++) {
