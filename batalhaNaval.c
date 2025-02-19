@@ -6,6 +6,104 @@
 #define TAMANHO_TABULEIRO 10
 #define TAMANHO_NAVIO 3
 
+void exibirTabuleiro(int tabuleiro[10][10]) {
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            if (tabuleiro[i][j] == 0) {
+                printf("0 ");  // Água
+            } else if (tabuleiro[i][j] == 3) {
+                printf("3 ");  // Navio
+            } else if (tabuleiro[i][j] == 5) {
+                printf("5 ");  // Área afetada pela habilidade
+            }
+        }
+        printf("\n");
+    }
+}
+
+// Função para aplicar a habilidade Cone
+void aplicarCone(int tabuleiro[10][10], int x, int y, int tamanho) {
+    int cone[tamanho][tamanho]; // Matriz de cone
+
+    // Preencher a matriz de cone com a forma de cone (1 = área afetada)
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = 0; j <= i; j++) {
+            cone[i][j] = 1; // Áreas afetadas pelo cone
+        }
+    }
+
+    // Sobrepor a matriz de cone no tabuleiro
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = 0; j <= i; j++) {
+            int cx = x + i; // Coordenada X no tabuleiro
+            int cy = y + j; // Coordenada Y no tabuleiro
+
+            // Verificar se a coordenada está dentro do tabuleiro
+            if (cx >= 0 && cx < 10 && cy >= 0 && cy < 10 && cone[i][j] == 1) {
+                tabuleiro[cx][cy] = 5; // Marca a área afetada
+            }
+        }
+    }
+}
+
+// Função para aplicar a habilidade Cruz
+void aplicarCruz(int tabuleiro[10][10], int x, int y, int tamanho) {
+    int cruz[tamanho][tamanho]; // Matriz de cruz
+
+    // Preencher a matriz de cruz (1 = área afetada)
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = 0; j < tamanho; j++) {
+            if (i == tamanho / 2 || j == tamanho / 2) {
+                cruz[i][j] = 1; // Áreas afetadas pela cruz
+            } else {
+                cruz[i][j] = 0;
+            }
+        }
+    }
+
+    // Sobrepor a matriz de cruz no tabuleiro
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = 0; j < tamanho; j++) {
+            int cx = x + i - tamanho / 2; // Coordenada X no tabuleiro
+            int cy = y + j - tamanho / 2; // Coordenada Y no tabuleiro
+
+            // Verificar se a coordenada está dentro do tabuleiro
+            if (cx >= 0 && cx < 10 && cy >= 0 && cy < 10 && cruz[i][j] == 1) {
+                tabuleiro[cx][cy] = 5; // Marca a área afetada
+            }
+        }
+    }
+}
+
+// Função para aplicar a habilidade Octaedro
+void aplicarOctaedro(int tabuleiro[10][10], int x, int y, int tamanho) {
+    int octaedro[tamanho][tamanho]; // Matriz de octaedro
+
+    // Preencher a matriz de octaedro (1 = área afetada)
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = 0; j < tamanho; j++) {
+            if (i + j >= tamanho / 2 && j - i <= tamanho / 2) {
+                octaedro[i][j] = 1; // Áreas afetadas pelo octaedro
+            } else {
+                octaedro[i][j] = 0;
+            }
+        }
+    }
+
+    // Sobrepor a matriz de octaedro no tabuleiro
+    for (int i = 0; i < tamanho; i++) {
+        for (int j = 0; j < tamanho; j++) {
+            int cx = x + i - tamanho / 2; // Coordenada X no tabuleiro
+            int cy = y + j - tamanho / 2; // Coordenada Y no tabuleiro
+
+            // Verificar se a coordenada está dentro do tabuleiro
+            if (cx >= 0 && cx < 10 && cy >= 0 && cy < 10 && octaedro[i][j] == 1) {
+                tabuleiro[cx][cy] = 5; // Marca a área afetada
+            }
+        }
+    }
+}
+
 int main() {
     int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO] = {0}; // 0 = água, 3 = navio
 
@@ -47,6 +145,14 @@ int main() {
         }
         printf("\n");
     }
+// Aplicar habilidades no tabuleiro
+aplicarCone(tabuleiro, 1, 2, 5);      // Habilidade Cone
+aplicarCruz(tabuleiro, 4, 3, 5);      // Habilidade Cruz
+aplicarOctaedro(tabuleiro, 7, 7, 5);  // Habilidade Octaedro
+
+// Exibir o tabuleiro após aplicar as habilidades
+printf("Tabuleiro com habilidades:\n");
+exibirTabuleiro(tabuleiro);
 
     // Nível Novato - Posicionamento dos Navios
     // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
