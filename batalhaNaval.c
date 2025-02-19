@@ -2,34 +2,47 @@
 
 // Desafio Batalha Naval - MateCheck
 // Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+// Siga os comentários para implementar cada parte do desafio
+#define TAMANHO_TABULEIRO 10
+#define TAMANHO_NAVIO 3
 
 int main() {
-    int tabuleiro[10][10] = {0};
+    int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO] = {0}; // 0 = água, 3 = navio
 
-    // Define as coordenadas dos navios
-    int navio1_linha_inicial = 2; 
-    int navio1_coluna_inicial = 3;
-    int navio2_linha_inicial = 5;
-    int navio2_coluna_inicial = 1;
-
-    // Posiciona o navio 1 (horizontal)
-    for (int i = 0; i < 3; i++) {
-        tabuleiro[navio1_linha_inicial][navio1_coluna_inicial + i] = 3; // 3 representa o navio
+    // Navio 1 (horizontal)
+    int navio1_linha = 2;
+    int navio1_coluna = 3;
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        tabuleiro[navio1_linha][navio1_coluna + i] = 3;
     }
 
-    // Posiciona o navio 2 (vertical)
-    for (int i = 0; i < 3; i++) {
-        tabuleiro[navio2_linha_inicial + i][navio2_coluna_inicial] = 3; // 3 representa o navio
+    // Navio 2 (vertical)
+    int navio2_linha = 5;
+    int navio2_coluna = 1;
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        tabuleiro[navio2_linha + i][navio2_coluna] = 3;
     }
 
-        printf("Tabuleiro de Batalha Naval\n");
+    // Navio 3 (diagonal principal)
+    int navio3_linha = 7;
+    int navio3_coluna = 7;
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        tabuleiro[navio3_linha + i][navio3_coluna + i] = 3;
+    }
 
-    // Exibe o tabuleiro com letras nas colunas e números nas linhas
-    printf("  A B C D E F G H I J\n"); // Imprime as letras das colunas
-    for (int i = 0; i < 10; i++) {
-        printf("%d ", i + 1); // Imprime o número da linha (1 a 10)
-        for (int j = 0; j < 10; j++) {
+    // Navio 4 (diagonal secundária)
+    int navio4_linha = 1;
+    int navio4_coluna = 8;
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        tabuleiro[navio4_linha + i][navio4_coluna - i] = 3;
+    }
+
+    printf("TABULEIRO DE BATALHA NAVAL\n");
+    // Exibição do tabuleiro
+    printf("  A B C D E F G H I J\n");
+    for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+        printf("%d ", i + 1);
+        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
             printf("%d ", tabuleiro[i][j]);
         }
         printf("\n");
